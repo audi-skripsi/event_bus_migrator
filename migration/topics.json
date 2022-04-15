@@ -1,0 +1,14 @@
+{
+    "data": [
+        {
+            "name": "audi.skripsi.lambda_event_ingestion",
+            "partition": 3,
+            "replication_factor": 1
+        },
+        {
+            "name": "audi.skripsi.lambda_event_identifier",
+            "partition": 3,
+            "replication_factor": 1
+        }
+    ]
+}
