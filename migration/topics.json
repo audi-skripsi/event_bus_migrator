@@ -6,7 +6,22 @@
             "replication_factor": 1
         },
         {
-            "name": "audi.skripsi.lambda_event_identifier",
+            "name": "audi.skripsi.lambda_speed_event_identifier",
+            "partition": 3,
+            "replication_factor": 1
+        },
+        {
+            "name": "audi.skripsi.lambda_speed_event_level_standardizer",
+            "partition": 3,
+            "replication_factor": 1
+        },
+        {
+            "name": "audi.skripsi.lambda_batch_event_identifier",
+            "partition": 3,
+            "replication_factor": 1
+        },
+        {
+            "name": "audi.skripsi.lambda_batch_event_level_standardizer",
             "partition": 3,
             "replication_factor": 1
         }
