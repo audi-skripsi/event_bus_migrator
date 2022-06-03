@@ -24,6 +24,11 @@
             "name": "audi.skripsi.lambda_batch_event_level_standardizer",
             "partition": 3,
             "replication_factor": 1
+        },
+        {
+            "name": "audi.skripsi.lambda_batch_processor_event_ingestion",
+            "partition": 3,
+            "replication_factor": 1
         }
     ]
 }
