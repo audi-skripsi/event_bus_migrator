@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/audi-skripsi/event_bus_migrator/internal/config"
 	"github.com/audi-skripsi/event_bus_migrator/internal/model"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/segmentio/kafka-go"
 	"github.com/sirupsen/logrus"
 )
 
@@ -13,7 +13,7 @@ type Repository interface {
 
 type repository struct {
 	logger     *logrus.Entry
-	kafkaAdmin *kafka.AdminClient
+	kafkaAdmin *kafka.Conn
 	config     *repositoryConfig
 }
 
@@ -23,7 +23,7 @@ type repositoryConfig struct {
 
 type NewRepositoryParams struct {
 	Logger     *logrus.Entry
-	KafkaAdmin *kafka.AdminClient
+	KafkaAdmin *kafka.Conn
 	Config     *config.Config
 }
 

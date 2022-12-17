@@ -1,18 +1,18 @@
 package repository
 
 import (
-	"context"
-
 	"github.com/audi-skripsi/event_bus_migrator/internal/model"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/segmentio/kafka-go"
 )
 
 func (r *repository) MigrateTopics(topics []model.Topic) (err error) {
-	var topicSpecs []kafka.TopicSpecification
+	var topicSpecs []kafka.TopicConfig
 	var topicNames []string
 
+	r.logger.Infof("migrating topics")
+
 	for _, v := range topics {
-		topicSpecs = append(topicSpecs, kafka.TopicSpecification{
+		topicSpecs = append(topicSpecs, kafka.TopicConfig{
 			Topic:             v.Name,
 			NumPartitions:     v.Partition,
 			ReplicationFactor: v.ReplicationFactor,
@@ -20,20 +20,18 @@ func (r *repository) MigrateTopics(topics []model.Topic) (err error) {
 		topicNames = append(topicNames, v.Name)
 	}
 
-	res, err := r.kafkaAdmin.DeleteTopics(context.Background(), topicNames)
+	err = r.kafkaAdmin.DeleteTopics(topicNames...)
 	if err != nil {
 		r.logger.Errorf("error deleting topics: %+v", err)
-		return
 	}
-	r.logger.Infof("delete topics response: %+v", res)
 
-	res, err = r.kafkaAdmin.CreateTopics(context.Background(),
-		topicSpecs,
+	err = r.kafkaAdmin.CreateTopics(
+		topicSpecs...,
 	)
 	if err != nil {
 		r.logger.Infof("error creating topic: %+v", err)
 		return
 	}
-	r.logger.Infof("topics created: %+v", res)
+	r.logger.Infof("topics created")
 	return
 }

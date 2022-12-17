@@ -2,12 +2,10 @@ package component
 
 import (
 	"github.com/audi-skripsi/event_bus_migrator/internal/config"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/segmentio/kafka-go"
 )
 
-func NewKafkaAdminClient(config config.KafkaConfig) (client *kafka.AdminClient, err error) {
-	client, err = kafka.NewAdminClient(&kafka.ConfigMap{
-		"bootstrap.servers": config.Address,
-	})
+func NewKafkaAdminClient(config config.KafkaConfig) (client *kafka.Conn, err error) {
+	client, err = kafka.Dial("tcp", config.Address)
 	return
 }
